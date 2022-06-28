@@ -7,23 +7,22 @@ MOVE_INCREMENT = 10
 STARTING_CAR_AMT = 1000
 
 
-class CarManager(Turtle):
+class CarManager:
 
     def __init__(self):
-        super().__init__()
-        self.shape("square")
-        self.color(random.choice(COLORS))
-        self.shapesize(stretch_len=2)
-        self.penup()
-        self.setposition(350, 0)
-        self.setheading(180)
+        self.car_list = []
 
     def create_car(self):
-        pass
-
-    # Place cars randomly off-screen on the right
-    def car_to_screen(self):
-        self.setposition(random.randint(320, 100000), random.randint(-240, 260))
+        random_num = random.randint(1, 6)
+        if random_num == 1:
+            new_car = Turtle("square")
+            new_car.color(random.choice(COLORS))
+            new_car.shapesize(stretch_len=2)
+            new_car.penup()
+            new_car.setheading(180)
+            new_car.setposition(300, random.randint(-250, 250))
+            self.car_list.append(new_car)
 
     def move(self):
-        self.forward(MOVE_INCREMENT)
+        for car in self.car_list:
+            car.forward(MOVE_INCREMENT)

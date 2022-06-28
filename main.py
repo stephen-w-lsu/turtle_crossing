@@ -1,4 +1,3 @@
-
 import time
 from turtle import Screen
 from player import Player
@@ -13,17 +12,12 @@ screen.tracer(0)
 time_sleep = 0.1
 FINISH_LINE_Y = 280
 player = Player()
+car = CarManager()
 scoreboard = Scoreboard()
 game_over = GameOver()
 you_won = YouWon()
 
-# Create a 10K of cars
-car_list = []
-for _ in range(1000):
-    car = CarManager()
-    car_list.append(car)
-    car.car_to_screen()
-
+# Press or hold w key to move player forward
 screen.listen()
 screen.onkeypress(player.move, "w")
 
@@ -32,10 +26,12 @@ while game_is_on:
     time.sleep(time_sleep)
     screen.update()
 
-    # Keeps car continuously moving from right to left
+    # Create cars on the right screen edge
+    # Keep car continuously moving from right to left
     # Print game over if car collides with player
-    for a_car in car_list:
-        a_car.move()
+    car.create_car()
+    car.move()
+    for a_car in car.car_list:
         if a_car.distance(player.position()) < 20:
             game_over.game_over()
             game_is_on = False
